@@ -7,7 +7,7 @@ from collections import deque
 
 # TODO: Make a different check for walls
 # TODO: Find entrance to the labyrinth
-
+# git test
 
 class Vertex:                                           # For each point we need to know:
     def __init__(self,x_coord,y_coord, parent):         # 
