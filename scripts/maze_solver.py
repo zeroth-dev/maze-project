@@ -140,7 +140,7 @@ def find_shortest_path(img,src, dist=1):
     return path                                                 # Return the constructed path
 
 img = cv2.imread('maze.jpg') # read an image from a file using opencv (cv2) library
-p = find_shortest_path(img, (469,496), dist=4) #pass the image, starting location and distance from walls+1
+p = find_shortest_path(img, (469,496), dist=4) # pass the image, starting location and distance from walls+1
 drawPath(img,p)
 plt.figure(figsize=(7,7))
 plt.imshow(img) # show the image on the screen 
