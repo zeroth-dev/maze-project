@@ -8,9 +8,11 @@ from std_msgs.msg import Empty
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge
 import matplotlib.pyplot as plt
+import sphero_ctl
 import time
 import PPPKod as testing
 import maze_solver as ms
+import Color_recognition_and_tracking_speed_distance as CRATS
 #import maze_solver as ms
 
 class DroneControl:
@@ -18,7 +20,11 @@ class DroneControl:
         self.__cv_bridge=CvBridge()
         rospy.init_node("Drone_controller", anonymous=True)
         self.camera_pub = rospy.Publisher("/bebop/camera_control", Twist, queue_size=10)
-        
+        self.sphero_pub = rospy.Publisher("sphero_0/cmd_vel", Twist, queue_size=10)
+
+        self.speed_class = CRATS.position_and_speed()
+        self.sphero_control = sphero_ctl.SpheroControl(self.sphero_pub)
+
         self.img=None
         #cv2.startWindowThread()
         #cv2.namedWindow('drone image')
@@ -26,11 +32,11 @@ class DroneControl:
         t = Twist()
         t.angular.y = -90
         current_time = rospy.get_time()
-        while rospy.get_time()-current_time<6.:
+        while rospy.get_time()-current_time<5.:
             self.camera_pub.publish(t)
             
         self.camera_sub = rospy.Subscriber("/bebop/image_raw", Image, self.get_image)
-        
+        self.mode = True
         rospy.spin()
 
     def get_image(self, img_msg):
@@ -41,7 +47,8 @@ class DroneControl:
         
 
         cv2.imshow('drone image', imageFrame)
-        
+        cv2.waitKey(40)
+        '''
         pts1 = np.array(0)
         while pts1.shape !=(4,2):
             try:
@@ -57,7 +64,7 @@ class DroneControl:
             #plt.show()
             
         pts1 = np.array(pts1)
-        print(f"Points to transform: {pts1}")
+        #print(f"Points to transform: {pts1}")
         pts2 = np.float32([[0, 0], [0, 650], [650, 0],  [650, 650] ])
         M = cv2.getPerspectiveTransform(pts1.astype(np.float32),pts2)
 
@@ -76,16 +83,19 @@ class DroneControl:
         for line in lines:
             x1, y1, x2, y2 = line[0]
             cv2.line(maze_image, (x1, y1), (x2, y2), (0, 0, 0), 4)
-        plt.figure(figsize=(7,7))
-        plt.imshow(blackAndWhiteImage) # show the image on the screen 
-        plt.show()
-
+        #plt.figure(figsize=(7,7))
+        #plt.imshow(blackAndWhiteImage) # show the image on the screen 
+        #plt.show()
+        '''
         # TODO Maze solving
         #simplified_maze = ms.simplify(blackAndWhiteImage)
-        ms.find_path(blackAndWhiteImage)
-        key = cv2.waitKey(1) & 0xFF
-        if key == ord("q"):
-            cv2.destroyAllWindows()
+        if self.mode:
+            error = 100
+            error =self.sphero_control.run(0.5, imageFrame)
+            if abs(error) < 0.1:
+                self.mode = False
+        else:
+            zero = self.sphero_control.run(0.0, imageFrame)
         
 
 
