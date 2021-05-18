@@ -18,10 +18,10 @@ Students who worked on the project:
 
 Leonardo Max Golušin (Team leader and development) leonardo.max.golusin@gmail.com <br/>
 Dominik Erić (Mechanical design and development) dominik.eric5@gmail.com <br/>
-Denis Đurašinović (Development) denis.durasinovic@fer.hr <br/> 
+Denis Đurašinović (Development) denis.durasinovic@gmail.com <br/> 
 Marin Maletić (Development) maleticmarin@gmail.com <br/>
 Nikola Špoljarec (Development) nikola.spoljarec.9999@gmail.com <br/>
-Filip Kirn (Development) filip.kirn@fer.hr <br/>
+Filip Kirn (Development) kirnfilip@gmail.com <br/>
 Josip Ante Kozulić (Simulink simulations) josipante.kozulic@gmail.com <br/>
 Filip Pušnik  (Simulink simulations) fipusnik@gmail.com <br/>
 Marija Rozić (Simulink simulations) marija.rozic99@gmail.com <br/>
