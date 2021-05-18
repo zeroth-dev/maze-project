@@ -1,7 +1,7 @@
 # Maze project
 
 This project was made by a group of students under the mentorship of Stjepan Bogdan with additional help from Assistants Antonella Barišić, Marko Križmančić and Marijana Peti for the fifth semester project on FER (fer.hr) 
-Files include all the test files we used as well as the simulink simulation files for the drone.
+Files include all the test files we used as well as the simulink simulation files.
 
 # Description
 
